@@ -1,0 +1,50 @@
+name: Bug report
+description: Report a reproducible SaveDelta defect using synthetic or redacted data.
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not upload private saves. Reproduce the same shape with synthetic data where possible.
+  - type: input
+    id: version
+    attributes:
+      label: SaveDelta version
+      placeholder: savedelta 0.1.0
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Python and operating system
+      placeholder: Python 3.12.4 on Windows 11
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Minimal command
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproducer
+    attributes:
+      label: Synthetic reproducer
+      description: Include a small script or exact steps; remove personal paths and values.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Privacy check
+      options:
+        - label: I confirmed that this report contains no private save data or secrets.
+          required: true

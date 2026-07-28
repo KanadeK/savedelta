@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">SaveDelta social preview</title>
+  <desc id="desc">A before and after byte field converges on one highlighted changed value.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07121f"/>
+      <stop offset="0.55" stop-color="#102239"/>
+      <stop offset="1" stop-color="#091827"/>
+    </linearGradient>
+    <linearGradient id="delta" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5ae0cb"/>
+      <stop offset="1" stop-color="#79a7ff"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1280" height="640" rx="32" fill="url(#background)"/>
+  <g opacity="0.16" stroke="#79a7ff">
+    <path d="M0 96H1280M0 192H1280M0 288H1280M0 384H1280M0 480H1280M0 576H1280"/>
+    <path d="M128 0V640M256 0V640M384 0V640M512 0V640M640 0V640M768 0V640M896 0V640M1024 0V640M1152 0V640"/>
+  </g>
+  <g transform="translate(96 96)">
+    <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="24">
+      <rect x="0" y="0" width="420" height="270" rx="22" fill="#0b1a2b" stroke="#2f5575" stroke-width="2"/>
+      <text x="30" y="46" fill="#8fa9bd" font-size="18" letter-spacing="3">BEFORE</text>
+      <text x="30" y="100" fill="#7290a8">001C</text>
+      <text x="118" y="100" fill="#b8cada">50 00 00 00</text>
+      <text x="30" y="150" fill="#7290a8">0020</text>
+      <rect x="108" y="117" width="194" height="49" rx="9" fill="#173d4d"/>
+      <text x="118" y="150" fill="#5ae0cb">64 00 00 00</text>
+      <text x="30" y="200" fill="#7290a8">0024</text>
+      <text x="118" y="200" fill="#b8cada">04 00 01 00</text>
+      <text x="30" y="244" fill="#527086" font-size="18">gold = 100</text>
+    </g>
+    <g transform="translate(668 0)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="24">
+      <rect x="0" y="0" width="420" height="270" rx="22" fill="#0b1a2b" stroke="#3c648b" stroke-width="2"/>
+      <text x="30" y="46" fill="#8fa9bd" font-size="18" letter-spacing="3">AFTER</text>
+      <text x="30" y="100" fill="#7290a8">001C</text>
+      <text x="118" y="100" fill="#b8cada">41 00 00 00</text>
+      <text x="30" y="150" fill="#7290a8">0020</text>
+      <rect x="108" y="117" width="194" height="49" rx="9" fill="#24396e"/>
+      <text x="118" y="150" fill="#86aaff">FA 00 00 00</text>
+      <text x="30" y="200" fill="#7290a8">0024</text>
+      <text x="118" y="200" fill="#b8cada">05 00 02 00</text>
+      <text x="30" y="244" fill="#527086" font-size="18">gold = 250</text>
+    </g>
+    <g transform="translate(472 98)" fill="none" stroke="url(#delta)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+      <path d="M0 39H128"/>
+      <path d="M99 8L132 39 99 70"/>
+    </g>
+    <g transform="translate(0 336)">
+      <text x="0" y="60" fill="#eef8ff" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="76" font-weight="760" letter-spacing="-3">Save<tspan fill="url(#delta)">Delta</tspan></text>
+      <text x="2" y="118" fill="#a8bdcc" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="30">Change one thing. Find exactly where it was stored.</text>
+      <g transform="translate(2 156)" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="650">
+        <rect width="164" height="43" rx="21" fill="#17364b"/>
+        <text x="21" y="28" fill="#65decf">JSON · SQLite</text>
+        <rect x="178" width="155" height="43" rx="21" fill="#17364b"/>
+        <text x="202" y="28" fill="#78a8f8">ZIP · Binary</text>
+        <rect x="347" width="204" height="43" rx="21" fill="#17364b"/>
+        <text x="370" y="28" fill="#b9cddd">Zero dependencies</text>
+      </g>
+    </g>
+  </g>
+</svg>

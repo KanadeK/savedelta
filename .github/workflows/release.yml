@@ -1,0 +1,51 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Validate
+        run: |
+          python -m pip install --no-deps -e .
+          python scripts/check.py
+          python -m unittest discover -s tests -v
+          python scripts/smoke_test.py
+      - name: Build
+        run: |
+          python scripts/build_zipapp.py
+          python -m pip wheel . --no-deps -w dist
+          git archive --format=tar.gz --prefix=savedelta-${GITHUB_REF_NAME#v}/ -o "dist/savedelta-${GITHUB_REF_NAME#v}.tar.gz" "$GITHUB_SHA"
+          cd dist
+          sha256sum savedelta.pyz savedelta-*.whl savedelta-*.tar.gz > SHA256SUMS
+      - name: Verify artifacts
+        run: |
+          python dist/savedelta.pyz --version
+          python dist/savedelta.pyz demo release-smoke
+          cd dist
+          sha256sum --check SHA256SUMS
+      - name: Publish GitHub Release
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "$GITHUB_REF_NAME"
+          dist/savedelta.pyz
+          dist/savedelta-*.whl
+          dist/savedelta-*.tar.gz
+          dist/SHA256SUMS
+          --title "SaveDelta ${GITHUB_REF_NAME#v}"
+          --generate-notes

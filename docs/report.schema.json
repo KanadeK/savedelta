@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/KanadeK/savedelta/main/docs/report.schema.json",
+  "title": "SaveDelta report",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "tool",
+    "generated_at",
+    "sources",
+    "summary",
+    "expectations",
+    "warnings",
+    "changes"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "tool": {
+      "type": "object",
+      "required": ["name", "version"],
+      "properties": {
+        "name": {
+          "const": "savedelta"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sources": {
+      "type": "object",
+      "required": ["before", "after"],
+      "properties": {
+        "before": {
+          "type": "string"
+        },
+        "after": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "summary": {
+      "$ref": "#/$defs/summary"
+    },
+    "expectations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/change"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "fileState": {
+      "type": ["object", "null"],
+      "properties": {
+        "size": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": ["size", "sha256"],
+      "additionalProperties": false
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "files_before",
+        "files_after",
+        "changed",
+        "modified",
+        "added",
+        "removed",
+        "renamed",
+        "unchanged"
+      ],
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "change": {
+      "type": "object",
+      "required": [
+        "path",
+        "status",
+        "format",
+        "before",
+        "after",
+        "summary",
+        "details"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "status": {
+          "enum": ["modified", "added", "removed", "renamed"]
+        },
+        "format": {
+          "type": "string"
+        },
+        "before": {
+          "$ref": "#/$defs/fileState"
+        },
+        "after": {
+          "$ref": "#/$defs/fileState"
+        },
+        "previous_path": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "details": {
+          "type": "object",
+          "required": ["kind"]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

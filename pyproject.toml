@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "savedelta"
+version = "0.1.0"
+description = "Change one thing. Find exactly where an app stored it."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+  { name = "KanadeK" }
+]
+keywords = [
+  "binary-diff",
+  "game-save",
+  "reverse-engineering",
+  "sqlite",
+  "snapshot",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Games/Entertainment",
+  "Topic :: Software Development :: Debuggers",
+  "Topic :: System :: Archiving",
+]
+
+[project.urls]
+Homepage = "https://github.com/KanadeK/savedelta"
+Documentation = "https://github.com/KanadeK/savedelta#readme"
+Issues = "https://github.com/KanadeK/savedelta/issues"
+Changelog = "https://github.com/KanadeK/savedelta/blob/main/CHANGELOG.md"
+
+[project.scripts]
+savedelta = "savedelta.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+savedelta = ["py.typed"]
